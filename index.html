@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerrSet Download Counts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .asset {
+            margin: 20px;
+        }
+        .asset h2 {
+            font-size: 1.5em;
+            color: #34495e;
+        }
+        .asset span {
+            font-size: 2em;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>TerrSet Latest Release Download Counts</h1>
+    <div id="AccessDatabaseEngine" class="asset">
+        <h2>AccessDatabaseEngine.exe</h2>
+        <span id="count-access">Loading...</span>
+    </div>
+    <div id="SetupTerrSet" class="asset">
+        <h2>Setup_TerrSet_liberaGIS_v20_00.exe</h2>
+        <span id="count-setup">Loading...</span>
+    </div>
+
+    <script>
+        async function fetchDownloadCounts() {
+            const apiUrl = "https://api.github.com/repos/ClarkCGA/TerrSet/releases";
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error(`Error: ${response.status}`);
+                
+                const releases = await response.json();
+                if (releases.length === 0) throw new Error("No releases found.");
+
+                const latestRelease = releases[0]; // The first release is the latest
+                const assets = latestRelease.assets;
+
+                // Find and display the download count for each specific asset
+                const accessAsset = assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+                const setupAsset = assets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
+
+                document.getElementById("count-access").textContent = 
+                    accessAsset ? accessAsset.download_count.toLocaleString() : "Not Found";
+
+                document.getElementById("count-setup").textContent = 
+                    setupAsset ? setupAsset.download_count.toLocaleString() : "Not Found";
+            } catch (error) {
+                document.getElementById("count-access").textContent = `Error: ${error.message}`;
+                document.getElementById("count-setup").textContent = `Error: ${error.message}`;
+            }
+        }
+
+        fetchDownloadCounts();
+    </script>
+</body>
+</html>
