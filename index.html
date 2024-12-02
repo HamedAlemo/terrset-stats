@@ -24,15 +24,17 @@
     </style>
 </head>
 <body>
-    <h1>TerrSet Latest Release Download Counts</h1>
-    <div id="AccessDatabaseEngine" class="asset">
-        <h2>AccessDatabaseEngine.exe</h2>
-        <span id="count-access">Loading...</span>
-    </div>
+    <h1>TerrSet liberaGIS Release Download Counts</h1>
     <div id="SetupTerrSet" class="asset">
         <h2>Setup_TerrSet_liberaGIS_v20_00.exe</h2>
         <span id="count-setup">Loading...</span>
     </div>
+    
+    <div id="AccessDatabaseEngine" class="asset">
+        <h2>AccessDatabaseEngine.exe</h2>
+        <span id="count-access">Loading...</span>
+    </div>
+
 
     <script>
         async function fetchDownloadCounts() {
@@ -49,17 +51,18 @@
                 const assets = latestRelease.assets;
 
                 // Find and display the download count for each specific asset
-                const accessAsset = assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
                 const setupAsset = assets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
+                const accessAsset = assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+
+                document.getElementById("count-setup").textContent = 
+                    setupAsset ? setupAsset.download_count.toLocaleString() : "Not Found";
 
                 document.getElementById("count-access").textContent = 
                     accessAsset ? accessAsset.download_count.toLocaleString() : "Not Found";
 
-                document.getElementById("count-setup").textContent = 
-                    setupAsset ? setupAsset.download_count.toLocaleString() : "Not Found";
             } catch (error) {
-                document.getElementById("count-access").textContent = `Error: ${error.message}`;
                 document.getElementById("count-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-access").textContent = `Error: ${error.message}`;
             }
         }
 
