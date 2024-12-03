@@ -27,15 +27,45 @@
     <h1>TerrSet liberaGIS Release Download Counts</h1>
     <div id="SetupTerrSet" class="asset">
         <h2>Setup_TerrSet_liberaGIS_v20_00.exe</h2>
-        <span id="count-setup">Loading...</span>
+        <span id="count-liberaGIS-setup">Loading...</span>
     </div>
     
     <div id="AccessDatabaseEngine" class="asset">
         <h2>AccessDatabaseEngine.exe</h2>
-        <span id="count-access">Loading...</span>
+        <span id="count-liberaGIS-access">Loading...</span>
     </div>
 
+    <div class="line">
+        <hr>
+    </div>
 
+    <h1>TerrSet 2020 Release Download Counts</h1>
+    <div id="SetupTerrSet" class="asset">
+        <h2>Setup_TerrSet_2020_v19_08.exe</h2>
+        <span id="count-t2020-setup">Loading...</span>
+    </div>
+    
+    <div id="AccessDatabaseEngine" class="asset">
+        <h2>AccessDatabaseEngine.exe</h2>
+        <span id="count-t2020-access">Loading...</span>
+    </div>
+
+    <div class="line">
+        <hr>
+    </div>
+
+    <h1>TerrSet v18.31 Release Download Counts</h1>
+    <div id="SetupTerrSet" class="asset">
+        <h2>Setup_TerrSet_v18_31.exe</h2>
+        <span id="count-v18-setup">Loading...</span>
+    </div>
+    
+    <div id="AccessDatabaseEngine" class="asset">
+        <h2>AccessDatabaseEngine.exe</h2>
+        <span id="count-v18-access">Loading...</span>
+    </div>
+
+    
     <script>
         async function fetchDownloadCounts() {
             const apiUrl = "https://api.github.com/repos/ClarkCGA/TerrSet/releases";
@@ -47,22 +77,58 @@
                 const releases = await response.json();
                 if (releases.length === 0) throw new Error("No releases found.");
 
-                const latestRelease = releases[0]; // The first release is the latest
-                const assets = latestRelease.assets;
+
+                // The first release is the liberaGIS
+                const liberaGISRelease = releases[0]; 
+                const liberaGISAssets = liberaGISRelease.assets;
 
                 // Find and display the download count for each specific asset
-                const setupAsset = assets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
-                const accessAsset = assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+                const liberaGISSetupAsset = liberaGISAssets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
+                const liberaGISAccessAsset = liberaGISAssets.find(asset => asset.name === "AccessDatabaseEngine.exe");
 
-                document.getElementById("count-setup").textContent = 
-                    setupAsset ? setupAsset.download_count.toLocaleString() : "Not Found";
+                document.getElementById("count-liberaGIS-setup").textContent = 
+                    liberaGISSetupAsset ? liberaGISSetupAsset.download_count.toLocaleString() : "Not Found";
 
-                document.getElementById("count-access").textContent = 
-                    accessAsset ? accessAsset.download_count.toLocaleString() : "Not Found";
+                document.getElementById("count-liberaGIS-access").textContent = 
+                    liberaGISAccessAsset ? liberaGISAccessAsset.download_count.toLocaleString() : "Not Found";
 
-            } catch (error) {
-                document.getElementById("count-setup").textContent = `Error: ${error.message}`;
-                document.getElementById("count-access").textContent = `Error: ${error.message}`;
+                
+                // The second release is the TerrSet2020
+                const t2020Release = releases[1]; 
+                const t2020assets = t2020Release.assets;
+
+                // Find and display the download count for each specific asset
+                const t2020SetupAsset = t2020assets.find(asset => asset.name === "Setup_TerrSet_2020_v19_08.exe");
+                const t2020AccessAsset = t2020assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+
+                document.getElementById("count-t2020-setup").textContent = 
+                    t2020SetupAsset ? t2020SetupAsset.download_count.toLocaleString() : "Not Found";
+
+                document.getElementById("count-t2020-access").textContent = 
+                    t2020AccessAsset ? t2020AccessAsset.download_count.toLocaleString() : "Not Found";
+
+                
+                // The third release is the TerrSet v18
+                const v18Release = releases[2]; 
+                const v18assets = v18Release.assets;
+
+                // Find and display the download count for each specific asset
+                const v18SetupAsset = v18assets.find(asset => asset.name === "Setup_TerrSet_v18_31.exe");
+                const v18AccessAsset = v18assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+
+                document.getElementById("count-v18-setup").textContent = 
+                    v18SetupAsset ? v18SetupAsset.download_count.toLocaleString() : "Not Found";
+
+                document.getElementById("count-v18-access").textContent = 
+                    v18AccessAsset ? v18AccessAsset.download_count.toLocaleString() : "Not Found";
+            } 
+            catch (error) {
+                document.getElementById("count-liberaGIS-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-liberaGIS-access").textContent = `Error: ${error.message}`;
+                document.getElementById("count-t2020-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-t2020-access").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v18-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v18-access").textContent = `Error: ${error.message}`;
             }
         }
 
