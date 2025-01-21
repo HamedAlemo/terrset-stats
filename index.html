@@ -22,24 +22,87 @@
             color: #2c3e50;
         }
     </style>
+    <title>HTML Table</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 10px;
+        }
+        th {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 <body>
     <h1>TerrSet liberaGIS Release Download Counts</h1>
+        <table>
+            <tr>
+                <th>v20.01 Setup</th>
+                <th>v20.01 ADBE</th>
+                <th>v20.00 Setup</th>
+                <th>v20.00 ADBE</th>
+            </tr>
+            <tr>
+                <td><span id="count-v2001-setup">Loading...</span></td>
+                <td><span id="count-v2001-access">Loading...</span></td>
+                <td><span id="count-v2000-setup">Loading...</span></td>
+                <td><span id="count-v2000-access">Loading...</span></td>
+            </tr>
+        </table>
+
+<!-- 
+
+    <h1>TerrSet liberaGIS v20.01 Release Download Counts</h1>
     <div id="SetupTerrSet" class="asset">
-        <h2>Setup_TerrSet_liberaGIS_v20_00.exe</h2>
-        <span id="count-liberaGIS-setup">Loading...</span>
+        <h2>Setup_TerrSet_liberaGIS_v20_01.exe</h2>
+        <span id="count-v2001-setup">Loading...</span>
     </div>
     
     <div id="AccessDatabaseEngine" class="asset">
         <h2>AccessDatabaseEngine.exe</h2>
-        <span id="count-liberaGIS-access">Loading...</span>
+        <span id="count-v2001-access">Loading...</span>
+    </div> -->
+<!-- 
+    <div class="line">
+        <hr>
     </div>
+
+    <h1>TerrSet liberaGIS v20.00 Release Download Counts</h1>
+    <div id="SetupTerrSet" class="asset">
+        <h2>Setup_TerrSet_liberaGIS_v20_00.exe</h2>
+        <span id="count-v2000-setup">Loading...</span>
+    </div>
+    
+    <div id="AccessDatabaseEngine" class="asset">
+        <h2>AccessDatabaseEngine.exe</h2>
+        <span id="count-v2000-access">Loading...</span>
+    </div> -->
 
     <div class="line">
         <hr>
     </div>
 
     <h1>TerrSet 2020 Release Download Counts</h1>
+    <table>
+        <tr>
+            <th>v19.08 Setup</th>
+            <th>v19.08 ADBE</th>
+        </tr>
+        <tr>
+            <td><span id="count-t2020-setup">Loading...</span></td>
+            <td><span id="count-t2020-access">Loading...</span></td>
+        </tr>
+    </table>
+<!--     
+    
+    
     <div id="SetupTerrSet" class="asset">
         <h2>Setup_TerrSet_2020_v19_08.exe</h2>
         <span id="count-t2020-setup">Loading...</span>
@@ -48,14 +111,25 @@
     <div id="AccessDatabaseEngine" class="asset">
         <h2>AccessDatabaseEngine.exe</h2>
         <span id="count-t2020-access">Loading...</span>
-    </div>
+    </div> -->
 
     <div class="line">
         <hr>
     </div>
 
     <h1>TerrSet v18.31 Release Download Counts</h1>
-    <div id="SetupTerrSet" class="asset">
+    <table>
+        <tr>
+            <th>v18.31 Setup</th>
+            <th>v18.31 ADBE</th>
+        </tr>
+        <tr>
+            <td><span id="count-v18-setup">Loading...</span></td>
+            <td><span id="count-v18-access">Loading...</span></td>
+        </tr>
+    </table>
+
+    <!-- <div id="SetupTerrSet" class="asset">
         <h2>Setup_TerrSet_v18_31.exe</h2>
         <span id="count-v18-setup">Loading...</span>
     </div>
@@ -63,7 +137,7 @@
     <div id="AccessDatabaseEngine" class="asset">
         <h2>AccessDatabaseEngine.exe</h2>
         <span id="count-v18-access">Loading...</span>
-    </div>
+    </div> -->
 
     
     <script>
@@ -78,23 +152,39 @@
                 if (releases.length === 0) throw new Error("No releases found.");
 
 
-                // The first release is the liberaGIS
-                const liberaGISRelease = releases[0]; 
-                const liberaGISAssets = liberaGISRelease.assets;
+                // The first release is the liberaGIS v20.01
+                const v2001Release = releases[0]; 
+                const v2001Assets = v2001Release.assets;
 
                 // Find and display the download count for each specific asset
-                const liberaGISSetupAsset = liberaGISAssets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
-                const liberaGISAccessAsset = liberaGISAssets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+                const v2001SetupAsset = v2001Assets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_01.exe");
+                const v2001AccessAsset = v2001Assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
 
-                document.getElementById("count-liberaGIS-setup").textContent = 
-                    liberaGISSetupAsset ? liberaGISSetupAsset.download_count.toLocaleString() : "Not Found";
+                document.getElementById("count-v2001-setup").textContent = 
+                    v2001SetupAsset ? v2001SetupAsset.download_count.toLocaleString() : "Not Found";
 
-                document.getElementById("count-liberaGIS-access").textContent = 
-                    liberaGISAccessAsset ? liberaGISAccessAsset.download_count.toLocaleString() : "Not Found";
+                document.getElementById("count-v2001-access").textContent = 
+                    v2001AccessAsset ? v2001AccessAsset.download_count.toLocaleString() : "Not Found";
+
+
+
+                // The first release is the liberaGIS v20.00
+                const v2000Release = releases[1]; 
+                const v2000Assets = v2000Release.assets;
+
+                // Find and display the download count for each specific asset
+                const v2000SetupAsset = v2000Assets.find(asset => asset.name === "Setup_TerrSet_liberaGIS_v20_00.exe");
+                const v2000AccessAsset = v2000Assets.find(asset => asset.name === "AccessDatabaseEngine.exe");
+
+                document.getElementById("count-v2000-setup").textContent = 
+                    v2000SetupAsset ? v2000SetupAsset.download_count.toLocaleString() : "Not Found";
+
+                document.getElementById("count-v2000-access").textContent = 
+                    v2000AccessAsset ? v2000AccessAsset.download_count.toLocaleString() : "Not Found";
 
                 
                 // The second release is the TerrSet2020
-                const t2020Release = releases[1]; 
+                const t2020Release = releases[2]; 
                 const t2020assets = t2020Release.assets;
 
                 // Find and display the download count for each specific asset
@@ -109,7 +199,7 @@
 
                 
                 // The third release is the TerrSet v18
-                const v18Release = releases[2]; 
+                const v18Release = releases[3]; 
                 const v18assets = v18Release.assets;
 
                 // Find and display the download count for each specific asset
@@ -123,8 +213,10 @@
                     v18AccessAsset ? v18AccessAsset.download_count.toLocaleString() : "Not Found";
             } 
             catch (error) {
-                document.getElementById("count-liberaGIS-setup").textContent = `Error: ${error.message}`;
-                document.getElementById("count-liberaGIS-access").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v2001-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v2001-access").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v2000-setup").textContent = `Error: ${error.message}`;
+                document.getElementById("count-v2000-access").textContent = `Error: ${error.message}`;
                 document.getElementById("count-t2020-setup").textContent = `Error: ${error.message}`;
                 document.getElementById("count-t2020-access").textContent = `Error: ${error.message}`;
                 document.getElementById("count-v18-setup").textContent = `Error: ${error.message}`;
